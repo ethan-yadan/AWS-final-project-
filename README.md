@@ -1,6 +1,7 @@
 # AWS-final-project
 AWS Final Project - Technion DevOps
 
+![AWS Arch](course_HA_example.png)
 
 ## Steps 
 

@@ -8,7 +8,7 @@ AWS Final Project - Technion DevOps
 - install and update standard python and debian linux
 - install and update aws cli on your linux debian vm
 - aws configure your account to your vm (aws access key ID, aws secret access key, aws region name and output format)
-- us-east-1 ubuntu 24.04 LTS ami : ami-0932ffb346ea84d48
+- us-east-1 ubuntu 24.04 LTS ami : ami-087c17d1fe0178315
 - get the key pair id to build ec2 machine 
 
 ## Installation 
@@ -26,5 +26,9 @@ AWS Final Project - Technion DevOps
 
 ### Create an aws environment 
 
+- aws ec2 create-key-pair --key-name EC2KeyPair --query "KeyMaterial" --output text > EC2KeyPair.pem
+- chmod 400 EC2KeyPair.pem
 - aws ec2 describe-key-pairs
-- aws ec2 run-instances --image-id ami-0932ffb346ea84d48 --instance-type t2.micro --count 1 --key-name key-0ffa0d1a7a27b1623
+- !!!!! need to create a subnet, check instructions !!!!!
+- aws ec2 run-instances --image-id ami-087c17d1fe0178315 --count 1 --instance-type t2.micro --key-name EC2KeyPair  --security-group-ids sg-092c59c4855a0a12d --subnet-id subnet-068f7b1d93da3fc7e --associate-public-ip-address --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=Demo-EC2}]'
+-  ssh -i "EC2KeyPair.pem" ubuntu@3.92.141.150 ## deppends on the used image, you can see the default user on the console ##

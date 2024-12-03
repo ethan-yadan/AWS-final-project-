@@ -30,5 +30,6 @@ AWS Final Project - Technion DevOps
 - chmod 400 EC2KeyPair.pem
 - aws ec2 describe-key-pairs
 - !!!!! need to create a subnet, check instructions !!!!!
+- !!!!! need to create a VPC, check instructions !!!!!!
 - aws ec2 run-instances --image-id ami-087c17d1fe0178315 --count 1 --instance-type t2.micro --key-name EC2KeyPair  --security-group-ids sg-092c59c4855a0a12d --subnet-id subnet-068f7b1d93da3fc7e --associate-public-ip-address --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=Demo-EC2}]'
 -  ssh -i "EC2KeyPair.pem" ubuntu@3.92.141.150 ## deppends on the used image, you can see the default user on the console ##

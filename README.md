@@ -25,6 +25,9 @@ AWS Final Project - Technion DevOps
 - aws sts get-caller-identity (this will confirm that you're connected to your aws account)
 
 ### Create an aws environment 
+!!!! pay attention, you have to run all the commands in alex's post in telegram, meanning to create an entire architecture to be able to connect to this machine from the world
+what i did in class was to create an EC2 but without all of the configuration (vpc, subnet, cid ... etc) it's not possible to connect from the world to the EC2 !!!!
+
 
 - aws ec2 create-key-pair --key-name EC2KeyPair --query "KeyMaterial" --output text > EC2KeyPair.pem
 - chmod 400 EC2KeyPair.pem
@@ -32,4 +35,4 @@ AWS Final Project - Technion DevOps
 - !!!!! need to create a subnet, check instructions !!!!!
 - !!!!! need to create a VPC, check instructions !!!!!!
 - aws ec2 run-instances --image-id ami-087c17d1fe0178315 --count 1 --instance-type t2.micro --key-name EC2KeyPair  --security-group-ids sg-092c59c4855a0a12d --subnet-id subnet-068f7b1d93da3fc7e --associate-public-ip-address --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=Demo-EC2}]'
--  ssh -i "EC2KeyPair.pem" ubuntu@3.92.141.150 ## deppends on the used image, you can see the default user on the console ##
+-  ssh -i "EC2KeyPair.pem" ubuntu@3.92.141.150 -v ## deppends on the used image, you can see the default user on the console ## to connect to EC2 need to use the public id (not private ip) ##

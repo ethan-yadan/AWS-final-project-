@@ -89,5 +89,6 @@ function create_gateway(){
 # Call functions 
 create_vpc
 create_subnet
+create_gateway
 
 

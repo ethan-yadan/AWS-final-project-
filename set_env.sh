@@ -220,13 +220,13 @@ function launch_ec2(){
     echo "Launching EC2 instance..."
 
     INSTANCE_ID=$(aws ec2 run-instances \
-    --image-id $AMI_ID \
+    --image-id "$AMI_ID" \
     --count 1 \
-    --instance-type $INSTANCE_TYPE \
-    --key-name $KEY_NAME \
-    --subnet-id $SUBNET_ID \
-    --security-group-ids $SECURITY_GROUP_ID \
-    --tag-specifications "ResourceType=instance,Tags=[{Key=$TAG_KEY,Value=$TAG_VALUE}]" \
+    --instance-type "$INSTANCE_TYPE" \
+    --key-name "$KEY_NAME" \
+    --subnet-id "$SUBNET_ID" \
+    --security-group-ids "$SECURITY_GROUP_ID" \
+    --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY",Value="$TAG_VALUE"}]" \
     --query 'Instances[0].InstanceId' \
     --output 2>/tmp/aws_error.log)
 

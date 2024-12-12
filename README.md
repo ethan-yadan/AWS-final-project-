@@ -20,6 +20,13 @@ It performs the following tasks using the AWS CLI:
 
 - Outputs Resource Details: After the resources are created, the script outputs the IDs of the VPC, subnet, internet gateway, route table, security group, and EC2 instance.
 
+Additional Details:
+
+- The script uses set -e to stop execution if any command fails, and set -x to print the commands as they are executed for debugging.
+- Error logs are written to /tmp/aws_error.log for better troubleshooting.
+- The script includes tagging for better resource management.
+- The SSH private key generated for EC2 access has permissions set to 400 to ensure secure access.
+
 ![AWS Arch](course_HA_example.png)
 
 ## Steps 

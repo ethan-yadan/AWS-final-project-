@@ -5,19 +5,12 @@ The provided script (set_env.sh) is an AWS infrastructure setup script written i
 It performs the following tasks using the AWS CLI:
 
 - Creates a VPC: A Virtual Private Cloud (VPC) is created with the CIDR block 10.0.0.0/16. It also tags the VPC with a name MyVPCSetup.
-
 - Creates a Subnet: A subnet is created within the VPC with the CIDR block 10.0.1.0/24. The subnet is tagged with a name Subnet-MyVPCSetup.
-
 - Creates an Internet Gateway (IGW): An internet gateway is created and will be attached to the VPC for internet access.
-
 - Attaches the IGW to the VPC: The script attaches the created internet gateway to the VPC, enabling internet connectivity.
-
 - Creates a Route Table: A route table is created, a default route (0.0.0.0/0) is added to route traffic via the internet gateway, and the subnet is associated with this route table.
-
 - Creates a Security Group: A security group is created and configured to allow inbound traffic on ports 22 (SSH), 80 (HTTP), and 443 (HTTPS).
-
 - Generates a Key Pair: An SSH key pair (my-keypair) is created and saved as a .pem file to access EC2 instances later.
-
 - Launches an EC2 Instance: An EC2 instance is launched in the subnet with:
   - specified AMI (ami-0c02fb55956c7d316)
   - instance type (t2.micro)

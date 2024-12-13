@@ -33,11 +33,13 @@ Additional Details:
 
 ## Steps 
 
-- install and update standard python and debian linux
-- install and update aws cli on your linux debian vm
-- aws configure your account to your vm (aws access key ID, aws secret access key, aws region name and output format)
-- us-east-1 ubuntu 24.04 LTS ami : ami-087c17d1fe0178315
-- get the key pair id to build ec2 machine 
+- install and update local debian environment
+- install and update aws cli on local debian vm
+- aws configure and connect your local vm to aws account
+- run bash script to create environment in aws
+- connect by ssh from local vm to aws ec2 machine created  
+
+
 
 ## Installation 
 
@@ -47,7 +49,7 @@ Additional Details:
 - sudo apt install awscli
 - aws --version
 - aws configure
-- aws s3 ls --profile my-profile
+- add session token (if using a temporary session crediatials) to ~/.aws/credentials (''' nano ~/.aws/credentials ''')
 - sudo apt update && sudo apt upgrade awscli
 - cat ~/.aws/credentials
 - aws sts get-caller-identity (this will confirm that you're connected to your aws account)

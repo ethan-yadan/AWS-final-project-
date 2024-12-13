@@ -37,6 +37,7 @@ Additional Details:
 - install and update aws cli on local debian vm
 - aws configure and connect your local vm to aws account
 - run bash script to create environment in aws
+- check environment created in aws
 - connect by ssh from local vm to aws ec2 machine created  
 
 
@@ -53,6 +54,8 @@ Additional Details:
 - sudo apt update && sudo apt upgrade awscli
 - cat ~/.aws/credentials
 - aws sts get-caller-identity (this will confirm that you're connected to your aws account)
+- aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[*].Instances[*].{Instance:InstanceId,State:State.Name,Type:InstanceType,AZ:Placement.AvailabilityZone,PublicIP:PublicIpAddress}" --output table
+
 
 ### Create an aws environment 
 !!!! pay attention, you have to run all the commands in alex's post in telegram, meanning to create an entire architecture to be able to connect to this machine from the world

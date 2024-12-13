@@ -58,9 +58,10 @@ Additional Details:
 
 
 ### Create an aws environment 
-!!!! pay attention, you have to run all the commands in alex's post in telegram, meanning to create an entire architecture to be able to connect to this machine from the world
-what i did in class was to create an EC2 but without all of the configuration (vpc, subnet, cid ... etc) it's not possible to connect from the world to the EC2 !!!!
 
+the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 
+that way the ec2 instace will serve as jenkins master and te docker containers in it will be the workers. 
+the two ec2 instances will communicate with each other, jenkins thru its workers will send missions to the nginx webserver 
 
 - aws ec2 create-key-pair --key-name EC2KeyPair --query "KeyMaterial" --output text > EC2KeyPair.pem
 - chmod 400 EC2KeyPair.pem

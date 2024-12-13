@@ -36,9 +36,12 @@ Additional Details:
 - install and update local debian environment
 - install and update aws cli on local debian vm
 - aws configure and connect your local vm to aws account
-- run bash script to create environment in aws
+- run bash script to create environment in aws (two ec2 instances: nginx webserver & jenkins master)
 - check environment created in aws
-- connect by ssh from local vm to aws ec2 machine created  
+- connect by ssh from local vm to aws ec2 instances created
+- install and configure nginx on instance nginx webserver
+- install and configure jenkins on jenkins master instance
+- 
 
 
 

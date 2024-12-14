@@ -75,61 +75,15 @@ TAG_KEY_EC2="Name"
 TAG_VALUE_EC2="MyProjectEC2Instance"
 
 
+    INSTANCE_ID=$(aws ec2 run-instances --image-id "$AMI_ID" --count 1 --instance-type "$INSTANCE_TYPE" --key-name "$KEY_NAME" --subnet-id "$SUBNET_ID" --security-group-ids "$SECURITY_GROUP_ID" \
+    --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY_EC2",Value="$TAG_VALUE_EC2"}]" --query 'Instances[0].InstanceId' --output text)
 
-# Launch an EC2 instance
-function launch_ec2(){
-    echo "Launching EC2 instance..."
-
-    INSTANCE_ID=$(aws ec2 run-instances \
-    --image-id "$AMI_ID" \
-    --count 1 \
-    --instance-type "$INSTANCE_TYPE" \
-    --key-name "$KEY_NAME" \
-    --subnet-id "$SUBNET_ID" \
-    --security-group-ids "$SECURITY_GROUP_ID" \
-    --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY",Value="$TAG_VALUE"}]" \
-    --query 'Instances[0].InstanceId' \
-    --output 2>/tmp/aws_error.log)
-
-    # Check the instance launch status
-    if [ -z "$INSTANCE_ID" ]; then 
-        echo "Error: Failed to launch EC2 instance."
-        echo "Details: $(cat /tmp/aws_error.log)"
-        return 1
-    fi 
-       
     echo "EC2 instance launched successfully with ID: "$INSTANCE_ID" "
-    
+     
 
-    # Output the instance details
-    echo "Fetching instance details..." 
-
-    INSTANCE_DETAILS=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" \
-        --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' \
-        --output table 2>/tmp/aws_error.log)
-
-    if [ $? -ne 0 ]; then
-        echo "Error: Failed to fetch instance details."
-        echo "Details: $(cat /tmp/aws_error.log)"
-        return 1
-    fi
-
+    INSTANCE_DETAILS=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' --output table )
     echo "$INSTANCE_DETAILS"
 
-}
-
-
-
-
-# Call functions 
-create_vpc
-create_subnet
-create_gateway
-attach_igw2vpc
-create_route
-create_secgroup
-generate_keypair
-launch_ec2
 
 
 

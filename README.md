@@ -72,6 +72,10 @@ Additional Details:
 - ''' echo "VPC created with ID: $VPC_ID" '''
 - ''' aws ec2 create-tags --resources "$VPC_ID" --tags Key="$TAG_KEY",Value="$TAG_VALUE" --region "$REGION" '''
 - ''' echo "VPC tagged with $TAG_KEY=$TAG_VALUE" '''
+- ''' SUBNET_ID=$(aws ec2 create-subnet --vpc-id "$VPC_ID" --cidr-block "$SUBNET_CIDR" --region "$REGION" --query 'Subnet.SubnetId' --output text) '''
+- ''' echo "Subnet created with ID: $SUBNET_ID" '''
+- ''' aws ec2 create-tags --resources "$SUBNET_ID" --tags Key="$TAG_KEY",Value="Subnet-$TAG_VALUE" --region "$REGION" '''
+- ''' echo "Subnet tagged with $TAG_KEY=Subnet-$TAG_VALUE" '''
 - 
 
 

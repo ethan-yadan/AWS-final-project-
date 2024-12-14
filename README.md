@@ -84,7 +84,9 @@ Additional Details:
 - ''' echo "Route Table created with ID: "$ROUTE_TABLE_ID"" '''
 - ''' aws ec2 create-route --route-table-id "$ROUTE_TABLE_ID" --destination-cidr-block 0.0.0.0/0 --gateway-id "$IGW_ID" --region "$REGION" '''
 - ''' echo "Route successfully added to Route Table "$ROUTE_TABLE_ID" " '''
-- 
+- ''' aws ec2 associate-route-table --route-table-id "$ROUTE_TABLE_ID" --subnet-id "$SUBNET_ID" --region "$REGION" '''
+- ''' echo "Subnet "$SUBNET_ID" successfully associated with Route Table "$ROUTE_TABLE_ID" " '''
+- ''' 
 
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 

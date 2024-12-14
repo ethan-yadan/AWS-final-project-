@@ -62,6 +62,9 @@ Additional Details:
 
 ### Create an aws environment 
 
+''' aws ec2 create-vpc --cidr-block 10.0.0.0/16 --region us-east-1 --query 'Vpc.VpcId' --output text '''
+
+
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 
 that way the ec2 instace will serve as jenkins master and te docker containers in it will be the workers. 
 the two ec2 instances will communicate with each other, jenkins thru its workers will send missions to the nginx webserver 

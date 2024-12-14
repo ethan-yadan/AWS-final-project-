@@ -1,13 +1,4 @@
-AMI_ID="ami-0c02fb55956c7d316" # Amazon Machine Image (AMI), Replace with the desired AMI ID, relevant to your region and requirements 
-INSTANCE_TYPE="t2.micro" # EC2 instance type to be launched 
-
-TAG_KEY_EC2="Name"
-TAG_VALUE_EC2="MyEC2Instance"
-# Tags for categorizing and managing resources
-
-###################################################################################3
-
-
+# AWS Environment Setup 
 
 VPC_CIDR="10.0.0.0/16"
 SUBNET_CIDR="10.0.1.0/24"
@@ -39,8 +30,6 @@ SECURITY_GROUP_DESC="Project security group for my VPC"
     
     aws ec2 attach-internet-gateway --internet-gateway-id "$IGW_ID" --vpc-id "$VPC_ID" --region "$REGION" 
     echo "Internet Gateway $IGW_ID successfully attached to VPC "$VPC_ID" in region "$REGION"."
-
-
     
 
     ROUTE_TABLE_ID=$(aws ec2 create-route-table --vpc-id "$VPC_ID" --region "$REGION" --query 'RouteTable.RouteTableId' --output text)
@@ -49,7 +38,6 @@ SECURITY_GROUP_DESC="Project security group for my VPC"
     aws ec2 create-route --route-table-id "$ROUTE_TABLE_ID" --destination-cidr-block 0.0.0.0/0 --gateway-id "$IGW_ID" --region "$REGION" 
     echo "Route successfully added to Route Table "$ROUTE_TABLE_ID" "
     
-
 
     aws ec2 associate-route-table --route-table-id "$ROUTE_TABLE_ID" --subnet-id "$SUBNET_ID" --region "$REGION" 
     echo "Subnet "$SUBNET_ID" successfully associated with Route Table "$ROUTE_TABLE_ID" "
@@ -62,7 +50,6 @@ SECURITY_GROUP_DESC="Project security group for my VPC"
     aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 443 --cidr 0.0.0.0/0 --region "$REGION"
 
 
-
 echo "VPC ID: "$VPC_ID" "
 echo "Subnet ID: "$SUBNET_ID" "
 echo "Internet Gateway ID: "$IGW_ID" "
@@ -70,12 +57,22 @@ echo "Route Table ID: "$ROUTE_TABLE_ID" "
 echo "Security Group ID: "$SECURITY_GROUP_ID" "
 
 
+# Create a Key Pair 
+
 KEY_NAME="my-project-keypair"
 KEY_FILE="${KEY_NAME}.pem"
 
     aws ec2 create-key-pair --key-name "$KEY_NAME" --query 'KeyMaterial' --output text > "$KEY_FILE" 
     echo "Key pair "$KEY_NAME" created successfully and saved as "$KEY_FILE" "
     chmod 400 "$KEY_FILE"
+
+
+# Launch EC2 Instances 
+
+AMI_ID="ami-0e2c8caa4b6378d8c"
+INSTANCE_TYPE="t2.micro" 
+TAG_KEY_EC2="Name"
+TAG_VALUE_EC2="MyProjectEC2Instance"
 
 
 

@@ -76,6 +76,10 @@ Additional Details:
 - ''' echo "Subnet created with ID: $SUBNET_ID" '''
 - ''' aws ec2 create-tags --resources "$SUBNET_ID" --tags Key="$TAG_KEY",Value="Subnet-$TAG_VALUE" --region "$REGION" '''
 - ''' echo "Subnet tagged with $TAG_KEY=Subnet-$TAG_VALUE" '''
+- ''' IGW_ID=$(aws ec2 create-internet-gateway --region "$REGION" --query 'InternetGateway.InternetGatewayId' --output text) '''
+- ''' echo "Internet Gateway created successfully in region "$REGION" with ID: "$IGW_ID" " '''
+- ''' aws ec2 attach-internet-gateway --internet-gateway-id "$IGW_ID" --vpc-id "$VPC_ID" --region "$REGION" '''
+- ''' echo "Internet Gateway $IGW_ID successfully attached to VPC "$VPC_ID" in region "$REGION"." '''
 - 
 
 

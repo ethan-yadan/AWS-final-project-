@@ -39,26 +39,14 @@ TAG_VALUE="MyProjectVPC"
 
 
     IGW_ID=$(aws ec2 create-internet-gateway --region "$REGION" --query 'InternetGateway.InternetGatewayId' --output text)
-    echo "Internet Gateway created successfully in region "$REGION" with ID: "$IGW_ID"
+    echo "Internet Gateway created successfully in region "$REGION" with ID: "$IGW_ID" "
 
-
-
-
-# Attach the Internet Gateway to the VPC
-function attach_igw2vpc(){
-    echo "Attaching Internet Gateway "$IGW_ID" to VPC "$VPC_ID" in region "$REGION" ..."
     
-    if aws ec2 attach-internet-gateway --internet-gateway-id "$IGW_ID" --vpc-id "$VPC_ID" --region "$REGION" 2>/tmp/aws_error.log; then
-        echo "Internet Gateway $IGW_ID successfully attached to VPC "$VPC_ID" in region "$REGION"."
+    aws ec2 attach-internet-gateway --internet-gateway-id "$IGW_ID" --vpc-id "$VPC_ID" --region "$REGION" 
+    echo "Internet Gateway $IGW_ID successfully attached to VPC "$VPC_ID" in region "$REGION"."
+
+
     
-    else 
-        echo "Error: Failed to attach Internet Gateway "$IGW_ID" to VPC "$VPC_ID"."
-        echo "Details: $(cat /tmp/aws_error.log)"
-        return 1    
-    fi 
-
-}
-
 
 # Route Table: Create route, Add to route table & associate with subnet
 function create_route(){

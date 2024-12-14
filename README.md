@@ -80,6 +80,10 @@ Additional Details:
 - ''' echo "Internet Gateway created successfully in region "$REGION" with ID: "$IGW_ID" " '''
 - ''' aws ec2 attach-internet-gateway --internet-gateway-id "$IGW_ID" --vpc-id "$VPC_ID" --region "$REGION" '''
 - ''' echo "Internet Gateway $IGW_ID successfully attached to VPC "$VPC_ID" in region "$REGION"." '''
+- ''' ROUTE_TABLE_ID=$(aws ec2 create-route-table --vpc-id "$VPC_ID" --region "$REGION" --query 'RouteTable.RouteTableId' --output text) '''
+- ''' echo "Route Table created with ID: "$ROUTE_TABLE_ID"" '''
+- ''' aws ec2 create-route --route-table-id "$ROUTE_TABLE_ID" --destination-cidr-block 0.0.0.0/0 --gateway-id "$IGW_ID" --region "$REGION" '''
+- ''' echo "Route successfully added to Route Table "$ROUTE_TABLE_ID" " '''
 - 
 
 

@@ -66,7 +66,10 @@ Additional Details:
       SUBNET_CIDR="10.0.1.0/24"
       REGION="us-east-1"
       TAG_KEY="Name"
-      TAG_VALUE="MyProjectVPC" '''
+      TAG_VALUE="MyProjectVPC"
+      SECURITY_GROUP_NAME="my-project-security-group"
+      SECURITY_GROUP_DESC="Project security group for my VPC" '''
+
 
 - ''' VPC_ID=$(aws ec2 create-vpc --cidr-block "$VPC_CIDR" --region "$REGION" --query 'Vpc.VpcId' --output text) '''
 - ''' echo "VPC created with ID: $VPC_ID" '''

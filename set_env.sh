@@ -38,20 +38,10 @@ TAG_VALUE="MyProjectVPC"
     echo "Subnet tagged with $TAG_KEY=Subnet-$TAG_VALUE"
 
 
+    IGW_ID=$(aws ec2 create-internet-gateway --region "$REGION" --query 'InternetGateway.InternetGatewayId' --output text)
+    echo "Internet Gateway created successfully in region "$REGION" with ID: "$IGW_ID"
 
-# Create an Internet Gateway
-function create_gateway(){
-    echo "Creating an Internet Gateway..."
-    IGW_ID=$(aws ec2 create-internet-gateway --region "$REGION" --query 'InternetGateway.InternetGatewayId' --output text 2>/dev/null)
 
-    # Check if Internet Gateway was created successfully
-    if [ -z "$IGW_ID" ]; then
-        echo "Error: Failed to create Internet Gateway. Please check your AWS CLI configuration and permissions."
-        return 1
-    fi
-
-    echo "Internet Gateway created successfully in region "$REGION" with ID: "$IGW_ID" "
-}
 
 
 # Attach the Internet Gateway to the VPC

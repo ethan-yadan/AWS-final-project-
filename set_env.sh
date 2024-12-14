@@ -1,5 +1,3 @@
-KEY_NAME="my-keypair" # Key pair name to be used to access to the EC2 instance
-KEY_FILE="${KEY_NAME}.pem" # Private key file associated with the key pair 
 AMI_ID="ami-0c02fb55956c7d316" # Amazon Machine Image (AMI), Replace with the desired AMI ID, relevant to your region and requirements 
 INSTANCE_TYPE="t2.micro" # EC2 instance type to be launched 
 
@@ -18,6 +16,7 @@ TAG_KEY="Name"
 TAG_VALUE="MyProjectVPC"
 SECURITY_GROUP_NAME="my-project-security-group"
 SECURITY_GROUP_DESC="Project security group for my VPC"
+
 
 
     VPC_ID=$(aws ec2 create-vpc --cidr-block "$VPC_CIDR" --region "$REGION" --query 'Vpc.VpcId' --output text)
@@ -71,28 +70,13 @@ echo "Route Table ID: "$ROUTE_TABLE_ID" "
 echo "Security Group ID: "$SECURITY_GROUP_ID" "
 
 
-# Generate a new key pair
-function generate_keypair(){
-    echo "Creating Key Pair..."
-    if aws ec2 create-key-pair --key-name "$KEY_NAME" --query 'KeyMaterial' --output text > "$KEY_FILE" 2>/tmp/aws_error.log; then
-        echo "Key pair "$KEY_NAME" created successfully and saved as "$KEY_FILE" "
-    else 
-        echo "Error: Failed to create key pair."
-        echo "Details: $(cat /tmp/aws_error.log)"
-        return 1
-    fi
+KEY_NAME="my-project-keypair"
+KEY_FILE="${KEY_NAME}.pem"
 
-    # Set permissions for the key file
-    echo "Setting permissions for the key file..."
+    aws ec2 create-key-pair --key-name "$KEY_NAME" --query 'KeyMaterial' --output text > "$KEY_FILE" 
+    echo "Key pair "$KEY_NAME" created successfully and saved as "$KEY_FILE" "
+    chmod 400 "$KEY_FILE"
 
-    if chmod 400 "$KEY_FILE"; then 
-        echo "Permissions set to 400 for "$KEY_FILE" "
-    else 
-        echo "Error: Failed to set permissions for "$KEY_FILE" "
-        return 1
-    fi 
-
-}
 
 
 # Launch an EC2 instance

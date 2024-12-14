@@ -62,8 +62,8 @@ Additional Details:
 
 ### Create an aws environment 
 
-''' aws ec2 create-vpc --cidr-block 10.0.0.0/16 --region us-east-1 --query 'Vpc.VpcId' --output text '''
-''' aws ec2 create-tags --resources $VPC_ID --tags Key=name,Value=myProjectVPC --region us-east-1 '''
+- ''' aws ec2 create-vpc --cidr-block 10.0.0.0/16 --region us-east-1 --query 'Vpc.VpcId' --output text '''
+- ''' aws ec2 create-tags --resources $VPC_ID --tags Key=name,Value=myProjectVPC --region us-east-1 '''
 
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 

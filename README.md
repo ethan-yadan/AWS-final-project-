@@ -101,6 +101,15 @@ Additional Details:
       echo "Route Table ID: "$ROUTE_TABLE_ID" "
       echo "Security Group ID: "$SECURITY_GROUP_ID" " '''
   
+### Create AWS Key Pair 
+
+- ''' KEY_NAME="my-project-keypair"
+      KEY_FILE="${KEY_NAME}.pem" '''
+  
+- ''' aws ec2 create-key-pair --key-name "$KEY_NAME" --query 'KeyMaterial' --output text > "$KEY_FILE" '''
+- ''' echo "Key pair "$KEY_NAME" created successfully and saved as "$KEY_FILE" " '''
+- ''' chmod 400 "$KEY_FILE" '''
+
 
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 

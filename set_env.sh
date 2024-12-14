@@ -1,9 +1,3 @@
-SECURITY_GROUP_NAME="my-security-group"
-SECURITY_GROUP_DESC="Security group for my VPC"
-# Virtual firewall to control inbound and outbound traffic for associated resources
-
-
-
 KEY_NAME="my-keypair" # Key pair name to be used to access to the EC2 instance
 KEY_FILE="${KEY_NAME}.pem" # Private key file associated with the key pair 
 AMI_ID="ami-0c02fb55956c7d316" # Amazon Machine Image (AMI), Replace with the desired AMI ID, relevant to your region and requirements 
@@ -13,7 +7,7 @@ TAG_KEY_EC2="Name"
 TAG_VALUE_EC2="MyEC2Instance"
 # Tags for categorizing and managing resources
 
-
+###################################################################################3
 
 
 
@@ -22,6 +16,8 @@ SUBNET_CIDR="10.0.1.0/24"
 REGION="us-east-1"
 TAG_KEY="Name"
 TAG_VALUE="MyProjectVPC"
+SECURITY_GROUP_NAME="my-project-security-group"
+SECURITY_GROUP_DESC="Project security group for my VPC"
 
 
     VPC_ID=$(aws ec2 create-vpc --cidr-block "$VPC_CIDR" --region "$REGION" --query 'Vpc.VpcId' --output text)
@@ -60,36 +56,14 @@ TAG_VALUE="MyProjectVPC"
     echo "Subnet "$SUBNET_ID" successfully associated with Route Table "$ROUTE_TABLE_ID" "
 
 
-
-
-    SECURITY_GROUP_ID=$(aws ec2 create-security-group \
-        --group-name "$SECURITY_GROUP_NAME" \
-        --description "$SECURITY_GROUP_DESC" \
-        --vpc-id "$VPC_ID" \
-        --region "$REGION" \
-        --query 'GroupId' \
-        --output text 2>/tmp/aws_error.log)
-
-    if [ -z "$SECURITY_GROUP_ID" ]; then
-        echo "Error: Failed to create Security group."
-        echo "Details: $(cat /tmp/aws_error.log)"
-        return 1
-    fi 
-
+    SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name "$SECURITY_GROUP_NAME" --description "$SECURITY_GROUP_DESC" --vpc-id "$VPC_ID" --region "$REGION" --query 'GroupId' --output text)
     echo "Security Group created successfully with ID: "$SECURITY_GROUP_ID" "
-
-    # Add inbound rules to the Security Group
-    echo "Adding Inbound Rules to Security Group "$SECURITY_GROUP_ID" "
-
     aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 22 --cidr 0.0.0.0/0 --region "$REGION"
     aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 80 --cidr 0.0.0.0/0 --region "$REGION"
     aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 443 --cidr 0.0.0.0/0 --region "$REGION"
 
-}
 
 
-# Summary 
-echo "$(date '+%Y-%m-%d %H:%M:%S') - All resources created successfully!"
 echo "VPC ID: "$VPC_ID" "
 echo "Subnet ID: "$SUBNET_ID" "
 echo "Internet Gateway ID: "$IGW_ID" "

@@ -11,7 +11,7 @@ TAG_VALUE="MyprojectVPC"
 # Create a VPC
 function create_vpc(){
     echo "Creating VPC..."
-    VPC_ID=$(aws ec2 create-vpc --cidr-block "$VPC_CIDR" --region "$REGION" --query 'Vpc.VpcId' --output text 2>/dev/null)
+    VPC_ID=$(aws ec2 create-vpc --cidr-block $VPC_CIDR --region $REGION --query 'Vpc.VpcId' --output text 2>/dev/null)
 
     if [ $? -ne 0 ]; then
         echo "Failed to tag VPC"
@@ -22,7 +22,7 @@ function create_vpc(){
 
     # Add a name tag to the VPC
     echo "Tagging VPC..."
-    aws ec2 create-tags --resources "$VPC_ID" --tags Key="$TAG_KEY",Value="$TAG_VALUE" --region "$REGION"
+    aws ec2 create-tags --resources $VPC_ID --tags Key=$TAG_KEY,Value=$TAG_VALUE --region $REGION
     if [ $? -ne 0 ]; then   
         echo "Failed to tag VPC" 
         return 1

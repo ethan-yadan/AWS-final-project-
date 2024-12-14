@@ -41,7 +41,7 @@ Additional Details:
 - connect by ssh from local vm to aws ec2 instances created
 - install and configure nginx on instance nginx webserver
 - install and configure jenkins on jenkins master instance
-- 
+
 
 
 
@@ -57,7 +57,6 @@ Additional Details:
 - sudo apt update && sudo apt upgrade awscli
 - cat ~/.aws/credentials
 - aws sts get-caller-identity (this will confirm that you're connected to your aws account)
-- aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query "Reservations[*].Instances[*].{Instance:InstanceId,State:State.Name,Type:InstanceType,AZ:Placement.AvailabilityZone,PublicIP:PublicIpAddress}" --output table
 
 
 ### Create an aws environment 

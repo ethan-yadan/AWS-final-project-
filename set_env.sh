@@ -48,46 +48,19 @@ TAG_VALUE="MyProjectVPC"
 
     
 
-# Route Table: Create route, Add to route table & associate with subnet
-function create_route(){
-    echo "Creating Route Table..."
-
-    ROUTE_TABLE_ID=$(aws ec2 create-route-table --vpc-id "$VPC_ID" --region "$REGION" --query 'RouteTable.RouteTableId' --output text 2>/tmp/aws_error.log)
-    
-    if [ -z "$ROUTE_TABLE_ID" ]; then
-        echo "Error: Failed to create Route Table."
-        echo "Details: $(cat /tmp/aws_error.log)"
-        return 1
-    fi 
-
+    ROUTE_TABLE_ID=$(aws ec2 create-route-table --vpc-id "$VPC_ID" --region "$REGION" --query 'RouteTable.RouteTableId' --output text)
     echo "Route Table created with ID: "$ROUTE_TABLE_ID""
-
-    # Add a route to the Route Table
-    echo "Adding Route to Route Table..." 
-    if aws ec2 create-route --route-table-id "$ROUTE_TABLE_ID" --destination-cidr-block 0.0.0.0/0 --gateway-id "$IGW_ID" --region "$REGION" 2>/tmp/aws_error.log; then
-        echo "Route successfully added to Route Table "$ROUTE_TABLE_ID" "
-    else 
-        echo "Error: Failed to add route to Route Table."
-        echo "Details: $(cat /tmp/aws_error.log)"
-        return 1
-    fi 
-
-    # Associate the Subnet with the Route Table
-    echo "Associating Subnet with Route Table..."
-    if aws ec2 associate-route-table --route-table-id "$ROUTE_TABLE_ID" --subnet-id "$SUBNET_ID" --region "$REGION" 2>/tmp/aws_error.log; then
-        echo "Subnet "$SUBNET_ID" successfully associated with Route Table "$ROUTE_TABLE_ID" "
-    else
-        echo "Error: Failed to associate Subnet with Route Table."
-        echo "Details: $(cat /tmp/aws_error.log)"
-        return 1
-    fi 
+   
+    aws ec2 create-route --route-table-id "$ROUTE_TABLE_ID" --destination-cidr-block 0.0.0.0/0 --gateway-id "$IGW_ID" --region "$REGION" 
+    echo "Route successfully added to Route Table "$ROUTE_TABLE_ID" "
     
-}
 
 
-# Create a Security Group
-function create_secgroup(){
-    echo "Creating Security Group..."
+    aws ec2 associate-route-table --route-table-id "$ROUTE_TABLE_ID" --subnet-id "$SUBNET_ID" --region "$REGION" 
+    echo "Subnet "$SUBNET_ID" successfully associated with Route Table "$ROUTE_TABLE_ID" "
+
+
+
 
     SECURITY_GROUP_ID=$(aws ec2 create-security-group \
         --group-name "$SECURITY_GROUP_NAME" \

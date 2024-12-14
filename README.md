@@ -89,7 +89,18 @@ Additional Details:
 - ''' echo "Route successfully added to Route Table "$ROUTE_TABLE_ID" " '''
 - ''' aws ec2 associate-route-table --route-table-id "$ROUTE_TABLE_ID" --subnet-id "$SUBNET_ID" --region "$REGION" '''
 - ''' echo "Subnet "$SUBNET_ID" successfully associated with Route Table "$ROUTE_TABLE_ID" " '''
-- ''' 
+- ''' SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name "$SECURITY_GROUP_NAME" --description "$SECURITY_GROUP_DESC" --vpc-id "$VPC_ID" --region "$REGION" --query 'GroupId' --output text) '''
+- ''' echo "Security Group created successfully with ID: "$SECURITY_GROUP_ID" " '''
+- ''' aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 22 --cidr 0.0.0.0/0 --region "$REGION" '''
+- ''' aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 80 --cidr 0.0.0.0/0 --region "$REGION" '''
+- ''' aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 443 --cidr 0.0.0.0/0 --region "$REGION" '''
+
+- ''' echo "VPC ID: "$VPC_ID" "
+      echo "Subnet ID: "$SUBNET_ID" "
+      echo "Internet Gateway ID: "$IGW_ID" "
+      echo "Route Table ID: "$ROUTE_TABLE_ID" "
+      echo "Security Group ID: "$SECURITY_GROUP_ID" " '''
+  
 
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 

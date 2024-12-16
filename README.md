@@ -124,7 +124,7 @@ Additional Details:
 ### Check Instances Running and Conncet by SSH
 
 - ''' aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].{InstanceId: InstanceId, PublicIpAddress: PublicIpAddress, PrivateIpAddress: PrivateIpAddress, State: State.Name, InstanceType: InstanceType}' --output table '''
-- ssh -i "my-project-keypair.pem" ubuntu@<EC2-publicIP> ''' (change EC2-publicIP with public IP allocated to the launched instace)
+- ssh -i "my-project-keypair.pem" ubuntu@[EC2-publicIP] ''' (change EC2-publicIP with public IP allocated to the launched instace)
 
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 

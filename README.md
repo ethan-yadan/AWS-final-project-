@@ -14,7 +14,7 @@ It performs the following tasks using the AWS CLI:
 - Creates a Security Group: A security group is created and configured to allow inbound traffic on ports 22 (SSH), 80 (HTTP), and 443 (HTTPS).
 - Generates a Key Pair: An SSH key pair (my-keypair) is created and saved as a .pem file to access EC2 instances later.
 - Launches an EC2 Instance: An EC2 instance is launched in the subnet with:
-  - specified AMI (ami-0c02fb55956c7d316)
+  - specified AMI (ami-0e2c8caa4b6378d8c)
   - instance type (t2.micro)
   - security group
   - key pair
@@ -121,6 +121,10 @@ Additional Details:
 - ''' INSTANCE_DETAILS=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' --output table) '''
 - ''' echo "$INSTANCE_DETAILS" '''
 
+### Check Instances Running and Conncet by SSH
+
+- ''' aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].{InstanceId: InstanceId, PublicIpAddress: PublicIpAddress, PrivateIpAddress: PrivateIpAddress, State: State.Name, InstanceType: InstanceType}' --output table '''
+- 
 
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 

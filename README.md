@@ -124,17 +124,10 @@ Additional Details:
 ### Check Instances Running and Conncet by SSH
 
 - ''' aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].{InstanceId: InstanceId, PublicIpAddress: PublicIpAddress, PrivateIpAddress: PrivateIpAddress, State: State.Name, InstanceType: InstanceType}' --output table '''
-- 
+- ssh -i "my-project-keypair.pem" ubuntu@<EC2-publicIP> ''' (change EC2-publicIP with public IP allocated to the launched instace)
 
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 
 that way the ec2 instace will serve as jenkins master and te docker containers in it will be the workers. 
 the two ec2 instances will communicate with each other, jenkins thru its workers will send missions to the nginx webserver 
 
-- aws ec2 create-key-pair --key-name EC2KeyPair --query "KeyMaterial" --output text > EC2KeyPair.pem
-- chmod 400 EC2KeyPair.pem
-- aws ec2 describe-key-pairs
-- !!!!! need to create a subnet, check instructions !!!!!
-- !!!!! need to create a VPC, check instructions !!!!!!
-- aws ec2 run-instances --image-id ami-087c17d1fe0178315 --count 1 --instance-type t2.micro --key-name EC2KeyPair  --security-group-ids sg-092c59c4855a0a12d --subnet-id subnet-068f7b1d93da3fc7e --associate-public-ip-address --tag-specifications ResourceType=instance,Tags='[{Key=Name,Value=Demo-EC2}]'
--  ssh -i "EC2KeyPair.pem" ubuntu@3.92.141.150 -v ## deppends on the used image, you can see the default user on the console ## to connect to EC2 need to use the public id (not private ip) ##

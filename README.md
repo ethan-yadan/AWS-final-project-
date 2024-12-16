@@ -116,8 +116,7 @@ Additional Details:
       TAG_KEY_EC2="Name"
       TAG_VALUE_EC2="MyProjectEC2Instance" '''
 
-- ''' INSTANCE_ID=$(aws ec2 run-instances --image-id "$AMI_ID" --count 1 --instance-type "$INSTANCE_TYPE" --key-name "$KEY_NAME" --subnet-id "$SUBNET_ID" --security-group-ids "$SECURITY_GROUP_ID" \
-    --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY",Value="$TAG_VALUE"}]" --query 'Instances[0].InstanceId' --output text) '''
+- ''' INSTANCE_ID=$(aws ec2 run-instances --image-id "$AMI_ID" --count 1 --instance-type "$INSTANCE_TYPE" --key-name "$KEY_NAME" --subnet-id "$SUBNET_ID" --security-group-ids "$SECURITY_GROUP_ID" --associate-public-ip-address --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY",Value="$TAG_VALUE"}]" --query 'Instances[0].InstanceId' --output text) '''
 - ''' echo "EC2 instance launched successfully with ID: "$INSTANCE_ID" " '''
 - ''' INSTANCE_DETAILS=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' --output table) '''
 - ''' echo "$INSTANCE_DETAILS" '''

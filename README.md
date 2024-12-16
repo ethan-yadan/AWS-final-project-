@@ -127,8 +127,19 @@ Additional Details:
 - ssh -i "my-project-keypair.pem" ubuntu@[EC2-publicIP] ''' (change EC2-publicIP with public IP allocated to the launched instace)
 
 ### Install Jenkins on Jenkins Master EC2 Instance
+- ''' java -version '''
 - ''' sudo apt update '''
-- 
+- ''' sudo apt install openjdk-11-jdk -y '''
+- ''' curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null '''
+- ''' echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null '''
+- ''' sudo apt update '''
+- ''' sudo apt install jenkins -y '''
+- ''' sudo systemctl status jenkins '''
+- ''' sudo systemctl enable --now jenkins ''' (if last step shows jenkins is not running)
+- ''' sudo ufw enable '''
+- ''' sudo ufw allow 8080 '''
+- ''' sudo ufw status '''
+
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 
 that way the ec2 instace will serve as jenkins master and te docker containers in it will be the workers. 

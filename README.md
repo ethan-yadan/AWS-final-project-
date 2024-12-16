@@ -126,6 +126,9 @@ Additional Details:
 - ''' aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].{InstanceId: InstanceId, PublicIpAddress: PublicIpAddress, PrivateIpAddress: PrivateIpAddress, State: State.Name, InstanceType: InstanceType}' --output table '''
 - ssh -i "my-project-keypair.pem" ubuntu@[EC2-publicIP] ''' (change EC2-publicIP with public IP allocated to the launched instace)
 
+### Install Jenkins on Jenkins Master EC2 Instance
+- ''' sudo apt update '''
+- 
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 
 that way the ec2 instace will serve as jenkins master and te docker containers in it will be the workers. 

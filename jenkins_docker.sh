@@ -1,3 +1,21 @@
+#!/bin/bash 
+
+####################################################
+#
+
+sudo apt update
+
+sudo curl -fsSL https://get.docker.com -o install-docker.sh
+
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+echo \
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+ 
  # pull image
 docker pull jenkins/jenkins
 
@@ -5,7 +23,7 @@ docker pull jenkins/jenkins
 docker images
 
 #run
-docker run -itd -p 8080:8080 --name jenkins_container <ImageID>
+docker run -itd -p 8080:8080 --name jenkins_container <ImageID> # you get in earlier step
 
 #Use the web browser to navigate to:
 

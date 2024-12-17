@@ -1,3 +1,10 @@
+#!/bin/bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+set -x
+
 # AWS Environment Setup 
 
 VPC_CIDR="10.0.0.0/16"

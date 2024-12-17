@@ -127,18 +127,30 @@ Additional Details:
 - ssh -i "my-project-keypair.pem" ubuntu@[EC2-publicIP] ''' (change EC2-publicIP with public IP allocated to the launched instace)
 
 ### Install Jenkins on Jenkins Master EC2 Instance
-- ''' java -version '''
-- ''' sudo apt update '''
-- ''' sudo apt install openjdk-11-jdk -y '''
-- ''' curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo tee /usr/share/keyrings/jenkins-keyring.asc > /dev/null '''
-- ''' echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null '''
-- ''' sudo apt update '''
-- ''' sudo apt install jenkins -y '''
-- ''' sudo systemctl status jenkins '''
-- ''' sudo systemctl enable --now jenkins ''' (if last step shows jenkins is not running)
-- ''' sudo ufw enable '''
-- ''' sudo ufw allow 8080 '''
-- ''' sudo ufw status '''
+
+docker 
+jenkins 
+token 
+browser 
+
+
+need to run script in mail to create docker - jenkins:jenkins container 
+after creating docker for jenkins, you can access the jenkins master on ec2 from vm firefox with ec2 publicip:80 
+enter jenkins token, create user or use admin and the access the jenkins console 
+from there can create jenkins pipeline to run on additional ec2 instance that will perform as worker 
+the pipeline from the master will run jenkinsfile installed by master in worker and from there will preform a task on app 
+in github (or anykind of different ci/cd task)
+try to create a main fronthand to run the other scripts (like shown by avishai and ori in the class presentation)
+
+in need to create a sencond ec2 instance from the script, check how to create 2 instances at the same time 
+check how to connect the second instance (jenkins worker) to communicate with the first instance (jenkins master) 
+i think it's better to change the name of the first instance to jenkins master 
+
+
+
+
+
+
 
 
 the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 

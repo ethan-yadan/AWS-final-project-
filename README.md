@@ -21,13 +21,11 @@ It performs the following tasks using the AWS CLI:
   - The instance is tagged with MyEC2Instance
 
 - Outputs Resource Details: After the resources are created, the script outputs the IDs of the VPC, subnet, internet gateway, route table, security group, and EC2 instance.
-
-Additional Details:
-
-- The script uses set -e to stop execution if any command fails, and set -x to print the commands as they are executed for debugging.
-- Error logs are written to /tmp/aws_error.log for better troubleshooting.
-- The script includes tagging for better resource management.
 - The SSH private key generated for EC2 access has permissions set to 400 to ensure secure access.
+
+After the EC2 instances are created, enter the EC2 tagged as 'Jenkins master' and git clone the project repository, then run jenkins bash to create docker, pull image
+and launch container for jenkins 
+then open a web browser from your local machine to enter the jenkins master webserver with the ec2 public ip and port 80  
 
 ![AWS Arch](course_HA_example.png)
 
@@ -53,11 +51,16 @@ Additional Details:
 - sudo apt install awscli
 - aws --version
 - aws configure
-- add session token (if using a temporary session crediatials) to ~/.aws/credentials (''' nano ~/.aws/credentials ''')
+- add session token (if using a temporary session crediatials) to ~/.aws/credentials (''' vim ~/.aws/credentials ''')
 - sudo apt update && sudo apt upgrade awscli
 - cat ~/.aws/credentials
 - aws sts get-caller-identity (this will confirm that you're connected to your aws account)
-
+- git clone repository
+- run bash script aws_env_set.sh
+- enter jenkins master ec2 instance by ssh
+- git clone repository
+- run bash script jenkins_setup.sh
+- 
 
 ### Create an aws environment 
 
@@ -128,15 +131,28 @@ Additional Details:
 
 ### Install Jenkins on Jenkins Master EC2 Instance
 
-docker 
-jenkins 
-token 
-browser 
+- ''' sudo apt-get update -y '''
+- ''' sudo apt-get install -y ca-certificates curl '''
+- ''' sudo install -m 0755 -d /etc/apt/keyrings '''
+- ''' sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc ''' 
+- ''' sudo chmod a+r /etc/apt/keyrings/docker.asc '''
+- ''' echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+- ''' sudo apt-get update '''
+- ''' sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin '''
+- ''' sudo docker pull jenkins/jenkins '''
+- ''' sudo docker run -itd -p 80:8080 --name jenkins_container jenkins/jenkins '''
+- ''' sudo docker images '''
+- ''' sudo docker exec -it jenkins_container /bin/bash '''
+- ''' cat /var/jenkins_home/secrets/initialAdminPassword '''
+- Access Jenkins at http://ec2publicIP:80"
 
 
-need to run script in mail to create docker - jenkins:jenkins container 
-after creating docker for jenkins, you can access the jenkins master on ec2 from vm firefox with ec2 publicip:80 
-enter jenkins token, create user or use admin and the access the jenkins console 
+
+
+
+
+
+
 from there can create jenkins pipeline to run on additional ec2 instance that will perform as worker 
 the pipeline from the master will run jenkinsfile installed by master in worker and from there will preform a task on app 
 in github (or anykind of different ci/cd task)

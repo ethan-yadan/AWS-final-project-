@@ -43,7 +43,7 @@ sudo docker run -itd -p 80:8080 --name jenkins_container jenkins/jenkins
 # 7. Display container details 
 echo "Listing Docker images..." 
 sudo docker images
-echo "Jenkins container is running. Access Jenkins at http://localhost:8080"
+echo "Jenkins container is running. Access Jenkins at http://ec2publicIP:80"
 
 # 8. Retrieve initial admin password
 echo "Retrieving Jenkins initial admin password..."

@@ -62,13 +62,14 @@ aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --proto
 aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 80 --cidr 0.0.0.0/0 --region "$REGION"
 aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 443 --cidr 0.0.0.0/0 --region "$REGION"
 
-
+echo " **** AWS Environment Creation Status **** "
+echo "-------------------------------------------"
 echo "VPC ID: "$VPC_ID" "
 echo "Subnet ID: "$SUBNET_ID" "
 echo "Internet Gateway ID: "$IGW_ID" "
 echo "Route Table ID: "$ROUTE_TABLE_ID" "
 echo "Security Group ID: "$SECURITY_GROUP_ID" "
-
+echo "-------------------------------------------"
 
 # Create a Key Pair 
 

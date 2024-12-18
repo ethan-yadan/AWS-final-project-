@@ -3,7 +3,7 @@
 ############### Start of Secure Header ###############
 # Created by: Eitan Yadan                            #
 # Purpose: creates aws environment for ec2           #
-# Version: 1.0.2                                     #
+# Version: 1.0.3                                     #
 # Date: 17.12.2024                                   #
 set -o errexit                                       #
 set -o pipefail                                      #
@@ -90,13 +90,20 @@ AMI_ID="ami-0e2c8caa4b6378d8c"
 INSTANCE_TYPE="t2.micro" 
 TAG_KEY_EC2="Name"
 TAG_VALUE_EC2="MyProjectEC2Instance"
+TAG_VALUE_EC2w="JenkinsWorker"
 
-INSTANCE_ID=$(aws ec2 run-instances --image-id "$AMI_ID" --count 1 --instance-type "$INSTANCE_TYPE" --key-name "$KEY_NAME" --subnet-id "$SUBNET_ID" --security-group-ids "$SECURITY_GROUP_ID" --associate-public-ip-address --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY_EC2",Value="$TAG_VALUE_EC2"}]" --query 'Instances[0].InstanceId' --output text)
+INSTANCE_ID1=$(aws ec2 run-instances --image-id "$AMI_ID" --count 1 --instance-type "$INSTANCE_TYPE" --key-name "$KEY_NAME" --subnet-id "$SUBNET_ID" --security-group-ids "$SECURITY_GROUP_ID" --associate-public-ip-address --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY_EC2",Value="$TAG_VALUE_EC2"}]" --query 'Instances[0].InstanceId' --output text)
 
-echo "EC2 instance launched successfully with ID: "$INSTANCE_ID" "
-     
-INSTANCE_DETAILS=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' --output table )
-echo "$INSTANCE_DETAILS"
+INSTANCE_ID2=$(aws ec2 run-instances --image-id "$AMI_ID" --count 1 --instance-type "$INSTANCE_TYPE" --key-name "$KEY_NAME" --subnet-id "$SUBNET_ID" --security-group-ids "$SECURITY_GROUP_ID" --associate-public-ip-address --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY_EC2",Value="$TAG_VALUE_EC2w"}]" --query 'Instances[0].InstanceId' --output text)
+
+echo "EC2 instance launched successfully with ID: "$INSTANCE_ID1" "
+echo "EC2 instance launched successfully with ID: "$INSTANCE_ID2" "
+
+INSTANCE_DETAILS1=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID1" --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' --output table )
+INSTANCE_DETAILS2=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID2" --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' --output table )
+
+echo "$INSTANCE_DETAILS1"
+echo "$INSTANCE_DETAILS2"
 
 
 # 9. Check EC2 Instances Status 

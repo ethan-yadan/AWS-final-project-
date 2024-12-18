@@ -11,21 +11,25 @@ set -o nounset                                       #
 set -x                                               #
 ############### End of Secure Header #################
 
+# 1. Update packages and install dependencies
+echo "Updating package list and installing prerequisites..." 
+sudo apt-get update -y 
+sudo apt-get install -y ca-certificates curl
 
-sudo apt update
-
-sudo curl -fsSL https://get.docker.com -o install-docker.sh
-
-sudo apt-get update
-sudo apt-get install ca-certificates curl -y 
+# 2. Adding Docker's GPG key
+echo "Adding Docker's GPG Key..." 
 sudo install -m 0755 -d /etc/apt/keyrings
 sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 sudo chmod a+r /etc/apt/keyrings/docker.asc
-echo \
 
+# Adding the repository to Apt sources: 
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
+# Install the Docker image: 
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
- 
- # pull image
+
+# Pull Jenkins image: 
 sudo docker pull jenkins/jenkins
 
 # view images and see thier IDs

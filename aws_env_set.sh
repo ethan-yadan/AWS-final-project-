@@ -12,7 +12,7 @@ set -x                                               #
 ############### End of Secure Header #################
 
 
-# AWS Environment Setup 
+# AWS Environment Variables Setup 
 
 VPC_CIDR="10.0.0.0/16"
 SUBNET_CIDR="10.0.1.0/24"
@@ -23,13 +23,15 @@ SECURITY_GROUP_NAME="my-project-security-group"
 SECURITY_GROUP_DESC="Project security group for my VPC"
 
 
-
+# 1. AWS VPC Cretaion and Tags
 VPC_ID=$(aws ec2 create-vpc --cidr-block "$VPC_CIDR" --region "$REGION" --query 'Vpc.VpcId' --output text)
 echo "VPC created with ID: $VPC_ID"
 
 aws ec2 create-tags --resources "$VPC_ID" --tags Key="$TAG_KEY",Value="$TAG_VALUE" --region "$REGION"
 echo "VPC tagged with $TAG_KEY=$TAG_VALUE"
 
+
+# 2. AWS Subnet Creation and Tagging
 SUBNET_ID=$(aws ec2 create-subnet --vpc-id "$VPC_ID" --cidr-block "$SUBNET_CIDR" --region "$REGION" --query 'Subnet.SubnetId' --output text) 
 echo "Subnet created with ID: $SUBNET_ID"
 
@@ -37,6 +39,7 @@ aws ec2 create-tags --resources "$SUBNET_ID" --tags Key="$TAG_KEY",Value="Subnet
 echo "Subnet tagged with $TAG_KEY=Subnet-$TAG_VALUE"
 
 
+# 3. AWS Internet Gateway Creation and Tagging
 IGW_ID=$(aws ec2 create-internet-gateway --region "$REGION" --query 'InternetGateway.InternetGatewayId' --output text)
 echo "Internet Gateway created successfully in region "$REGION" with ID: "$IGW_ID" "
 

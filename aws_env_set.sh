@@ -13,7 +13,6 @@ set -x                                               #
 
 
 # AWS Environment Variables Setup 
-
 VPC_CIDR="10.0.0.0/16"
 SUBNET_CIDR="10.0.1.0/24"
 REGION="us-east-1"
@@ -42,29 +41,31 @@ echo "Subnet tagged with $TAG_KEY=Subnet-$TAG_VALUE"
 # 3. AWS Internet Gateway Creation and Tagging
 IGW_ID=$(aws ec2 create-internet-gateway --region "$REGION" --query 'InternetGateway.InternetGatewayId' --output text)
 echo "Internet Gateway created successfully in region "$REGION" with ID: "$IGW_ID" "
-
     
 aws ec2 attach-internet-gateway --internet-gateway-id "$IGW_ID" --vpc-id "$VPC_ID" --region "$REGION" 
 echo "Internet Gateway $IGW_ID successfully attached to VPC "$VPC_ID" in region "$REGION"."
     
 
+# 4. AWS Route Table and Associate to Subnet 
 ROUTE_TABLE_ID=$(aws ec2 create-route-table --vpc-id "$VPC_ID" --region "$REGION" --query 'RouteTable.RouteTableId' --output text)
 echo "Route Table created with ID: "$ROUTE_TABLE_ID""
    
 aws ec2 create-route --route-table-id "$ROUTE_TABLE_ID" --destination-cidr-block 0.0.0.0/0 --gateway-id "$IGW_ID" --region "$REGION" 
 echo "Route successfully added to Route Table "$ROUTE_TABLE_ID" "
     
-
 aws ec2 associate-route-table --route-table-id "$ROUTE_TABLE_ID" --subnet-id "$SUBNET_ID" --region "$REGION" 
 echo "Subnet "$SUBNET_ID" successfully associated with Route Table "$ROUTE_TABLE_ID" "
 
 
+# 5. AWS Security Group Creation and Ingress Roles 
 SECURITY_GROUP_ID=$(aws ec2 create-security-group --group-name "$SECURITY_GROUP_NAME" --description "$SECURITY_GROUP_DESC" --vpc-id "$VPC_ID" --region "$REGION" --query 'GroupId' --output text)
 echo "Security Group created successfully with ID: "$SECURITY_GROUP_ID" "
 aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 22 --cidr 0.0.0.0/0 --region "$REGION"
 aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 80 --cidr 0.0.0.0/0 --region "$REGION"
 aws ec2 authorize-security-group-ingress --group-id "$SECURITY_GROUP_ID" --protocol tcp --port 443 --cidr 0.0.0.0/0 --region "$REGION"
 
+
+# 6. Summary 
 echo " **** AWS Environment Creation Status **** "
 echo "-------------------------------------------"
 echo "VPC ID: "$VPC_ID" "
@@ -74,8 +75,8 @@ echo "Route Table ID: "$ROUTE_TABLE_ID" "
 echo "Security Group ID: "$SECURITY_GROUP_ID" "
 echo "-------------------------------------------"
 
-# Create a Key Pair 
 
+# 7. AWS Key Pair Creation and Permissions
 KEY_NAME="my-project-keypair"
 KEY_FILE="${KEY_NAME}.pem"
 
@@ -84,22 +85,19 @@ echo "Key pair "$KEY_NAME" created successfully and saved as "$KEY_FILE" "
 chmod 400 "$KEY_FILE"
 
 
-# Launch EC2 Instances 
-
+# 8. AWS EC2 Instances Creation and Launching 
 AMI_ID="ami-0e2c8caa4b6378d8c"
 INSTANCE_TYPE="t2.micro" 
 TAG_KEY_EC2="Name"
 TAG_VALUE_EC2="MyProjectEC2Instance"
 
-
 INSTANCE_ID=$(aws ec2 run-instances --image-id "$AMI_ID" --count 1 --instance-type "$INSTANCE_TYPE" --key-name "$KEY_NAME" --subnet-id "$SUBNET_ID" --security-group-ids "$SECURITY_GROUP_ID" --associate-public-ip-address --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY_EC2",Value="$TAG_VALUE_EC2"}]" --query 'Instances[0].InstanceId' --output text)
-
 
 echo "EC2 instance launched successfully with ID: "$INSTANCE_ID" "
      
-
 INSTANCE_DETAILS=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' --output table )
 echo "$INSTANCE_DETAILS"
 
-# Check EC2 Instances Status 
+
+# 9. Check EC2 Instances Status 
 aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].{InstanceId: InstanceId, PublicIpAddress: PublicIpAddress, PrivateIpAddress: PrivateIpAddress, State: State.Name, InstanceType: InstanceType}' --output table

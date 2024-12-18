@@ -96,3 +96,6 @@ echo "EC2 instance launched successfully with ID: "$INSTANCE_ID" "
 
 INSTANCE_DETAILS=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' --output table )
 echo "$INSTANCE_DETAILS"
+
+# Check EC2 Instances Status 
+aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].{InstanceId: InstanceId, PublicIpAddress: PublicIpAddress, PrivateIpAddress: PrivateIpAddress, State: State.Name, InstanceType: InstanceType}' --output table

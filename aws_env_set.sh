@@ -11,25 +11,25 @@ set -o nounset                                       #
 set -x                                               #
 ############### End of Secure Header #################
 
-echo " AAAAAA\  WW\      WW\  SSSSSS\        LL\                                              HH\                                "
-echo "AA  __AA\ WW | W\  WW |SS  __SS\       LL |                                             HH |                               "
-echo "AA /  AA |WW |WWW\ WW |SS /  \__|      LL |      AAAAAA\  UU\   UU\ NNNNNNN\   CCCCCCC\ HHHHHHH\   EEEEEE\   RRRRRR\       "
-echo "AAAAAAAA |WW WW WW\WW |\SSSSSS\        LL |      \____AA\ UU |  UU |NN  __NN\ CC  _____|HH  __HH\ EE  __EE\ RR  __RR\      "
-echo "AA  __AA |WWWW  _WWWW | \____SS\       LL |      AAAAAAA |UU |  UU |NN |  NN |CC /      HH |  HH |EEEEEEEE |RR |  \__|     "
-echo "AA |  AA |WWW  / \WWW |SS\   SS |      LL |     AA  __AA |UU |  UU |NN |  NN |CC |      HH |  HH |EE   ____|RR |           " 
-echo "AA |  AA |WW  /   \WW |\SSSSSS  |      LLLLLLLL\\AAAAAAA |\UUUUUU  |NN |  NN |\CCCCCCC\ HH |  HH |\EEEEEEE\ RR |           "
-echo "\__|  \__|\__/     \__| \______/       \________|\_______| \______/ \__|  \__| \_______|\__|  \__| \_______|\__|           "
+ AAAAAA\  WW\      WW\  SSSSSS\        LL\                                              HH\                                
+AA  __AA\ WW | W\  WW |SS  __SS\       LL |                                             HH |                               
+AA /  AA |WW |WWW\ WW |SS /  \__|      LL |      AAAAAA\  UU\   UU\ NNNNNNN\   CCCCCCC\ HHHHHHH\   EEEEEE\   RRRRRR\       
+AAAAAAAA |WW WW WW\WW |\SSSSSS\        LL |      \____AA\ UU |  UU |NN  __NN\ CC  _____|HH  __HH\ EE  __EE\ RR  __RR\      
+AA  __AA |WWWW  _WWWW | \____SS\       LL |      AAAAAAA |UU |  UU |NN |  NN |CC /      HH |  HH |EEEEEEEE |RR |  \__|     
+AA |  AA |WWW  / \WWW |SS\   SS |      LL |     AA  __AA |UU |  UU |NN |  NN |CC |      HH |  HH |EE   ____|RR |            
+AA |  AA |WW  /   \WW |\SSSSSS  |      LLLLLLLL\\AAAAAAA |\UUUUUU  |NN |  NN |\CCCCCCC\ HH |  HH |\EEEEEEE\ RR |           
+\__|  \__|\__/     \__| \______/       \________|\_______| \______/ \__|  \__| \_______|\__|  \__| \_______|\__|           
                                                                                                                       
                                                                                                                       
                                                                                                                       
-echo "      EEEEEEEE\ II\   TT\                               YY\     YY\               DD\                           "      
-echo "      EE  _____|\__|  TT |                              \YY\   YY  |              DD |                          "    
-echo "      EE |      II\ TTTTTT\    AAAAAA\  NNNNNNN\         \YY\ YY  /AAAAAA\   DDDDDDD | AAAAAA\  NNNNNNN\        "    
-echo "      EEEEE\    II |\_TT  _|   \____AA\ NN  __NN\         \YYYY  / \____AA\ DD  __DD | \____AA\ NN  __NN\       "      
-echo "      EE  __|   II |  TT |     AAAAAAA |NN |  NN |         \YY  /  AAAAAAA |DD /  DD | AAAAAAA |NN |  NN |      "     
-echo "      EE |      II |  TT |TT\ AA  __AA |NN |  NN |          YY |  AA  __AA |DD |  DD |AA  __AA |NN |  NN |      "    
-echo "      EEEEEEEE\ II |  \TTTT  |\AAAAAAA |NN |  NN |          YY |  \AAAAAAA |\DDDDDDD |\AAAAAAA |NN |  NN |      "   
-echo "      \________|\__|   \____/  \_______|\__|  \__|          \__|   \_______| \_______| \_______|\__|  \__|      "  
+      EEEEEEEE\ II\   TT\                               YY\     YY\               DD\                                 
+      EE  _____|\__|  TT |                              \YY\   YY  |              DD |                              
+      EE |      II\ TTTTTT\    AAAAAA\  NNNNNNN\         \YY\ YY  /AAAAAA\   DDDDDDD | AAAAAA\  NNNNNNN\            
+      EEEEE\    II |\_TT  _|   \____AA\ NN  __NN\         \YYYY  / \____AA\ DD  __DD | \____AA\ NN  __NN\             
+      EE  __|   II |  TT |     AAAAAAA |NN |  NN |         \YY  /  AAAAAAA |DD /  DD | AAAAAAA |NN |  NN |           
+      EE |      II |  TT |TT\ AA  __AA |NN |  NN |          YY |  AA  __AA |DD |  DD |AA  __AA |NN |  NN |          
+      EEEEEEEE\ II |  \TTTT  |\AAAAAAA |NN |  NN |          YY |  \AAAAAAA |\DDDDDDD |\AAAAAAA |NN |  NN |         
+      \________|\__|   \____/  \_______|\__|  \__|          \__|   \_______| \_______| \_______|\__|  \__|        
                                                                                                                
 
 # AWS Environment Variables Setup 

@@ -1,7 +1,16 @@
-#!/bin/bash 
+#!/bin/bash
 
-####################################################
-#
+############### Start of Secure Header ###############
+# Created by: Eitan Yadan                            #
+# Purpose: Launching Jenkins in EC2 Instance         #
+# Version: 1.0.1                                     #
+# Date: 17.12.2024                                   #
+set -o errexit                                       #
+set -o pipefail                                      #
+set -o nounset                                       #
+set -x                                               #
+############### End of Secure Header #################
+
 
 sudo apt update
 

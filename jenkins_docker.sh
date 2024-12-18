@@ -49,7 +49,5 @@ echo "Jenkins container is running. Access Jenkins at http://localhost:8080"
 echo "Retrieving Jenkins initial admin password..."
 sudo docker exec -it jenkins_container /bin/bash cat /var/jenkins_home/secrets/initialAdminPassword
 
-#in the container, run:
-cat /var/jenkins_home/secrets/initialAdminPassword
 echo "Copy the token above and paste it into the web browser to complete Jenkins setup."
 

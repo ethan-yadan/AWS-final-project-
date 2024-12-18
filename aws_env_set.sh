@@ -1,15 +1,15 @@
 #!/bin/bash
-############### start of secure header ###########################
-# created by: Eitan Yadan 
-# purpose: creates aws environment for ec2
-# version: 1.0.0
-# date: 17.12.2024
 
-set -o errexit
-set -o pipefail
-set -o nounset
-set -x
-############### end of secure header #############################
+############### Start of Secure Header ###############
+# Created by: Eitan Yadan                            #
+# Purpose: creates aws environment for ec2           #
+# Version: 1.0.2                                     #
+# Date: 17.12.2024                                   #
+set -o errexit                                       #
+set -o pipefail                                      #
+set -o nounset                                       #
+set -x                                               #
+############### End of Secure Header #################
 
 
 # AWS Environment Setup 

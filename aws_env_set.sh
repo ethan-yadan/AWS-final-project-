@@ -22,13 +22,13 @@ echo "\__|  \__|\__/     \__| \______/       \________|\_______| \______/ \__|  
                                                                                                                       
                                                                                                                       
                                                                                                                       
-echo "      EEEEEEEE\ II\   TT\                               $$\     $$\               $$\                           "      
-echo "      EE  _____|\__|  TT |                              \$$\   $$  |              $$ |                          "    
-echo "      EE |      II\ TTTTTT\    $$$$$$\  $$$$$$$\         \$$\ $$  /$$$$$$\   $$$$$$$ | $$$$$$\  $$$$$$$\        "    
-echo "      EEEEE\    II |\_TT  _|   \____$$\ $$  __$$\         \$$$$  / \____$$\ $$  __$$ | \____$$\ $$  __$$\       "      
-echo "      EE  __|   II |  TT |     $$$$$$$ |$$ |  $$ |         \$$  /  $$$$$$$ |$$ /  $$ | $$$$$$$ |$$ |  $$ |      "     
-echo "      EE |      II |  TT |TT\ $$  __$$ |$$ |  $$ |          $$ |  $$  __$$ |$$ |  $$ |$$  __$$ |$$ |  $$ |      "    
-echo "      EEEEEEEE\ II |  \TTTT  |\$$$$$$$ |$$ |  $$ |          $$ |  \$$$$$$$ |\$$$$$$$ |\$$$$$$$ |$$ |  $$ |      "   
+echo "      EEEEEEEE\ II\   TT\                               YY\     YY\               DD\                           "      
+echo "      EE  _____|\__|  TT |                              \YY\   YY  |              DD |                          "    
+echo "      EE |      II\ TTTTTT\    AAAAAA\  NNNNNNN\         \YY\ YY  /AAAAAA\   DDDDDDD | AAAAAA\  NNNNNNN\        "    
+echo "      EEEEE\    II |\_TT  _|   \____AA\ NN  __NN\         \YYYY  / \____AA\ DD  __DD | \____AA\ NN  __NN\       "      
+echo "      EE  __|   II |  TT |     AAAAAAA |NN |  NN |         \YY  /  AAAAAAA |DD /  DD | AAAAAAA |NN |  NN |      "     
+echo "      EE |      II |  TT |TT\ AA  __AA |NN |  NN |          YY |  AA  __AA |DD |  DD |AA  __AA |NN |  NN |      "    
+echo "      EEEEEEEE\ II |  \TTTT  |\AAAAAAA |NN |  NN |          YY |  \AAAAAAA |\DDDDDDD |\AAAAAAA |NN |  NN |      "   
 echo "      \________|\__|   \____/  \_______|\__|  \__|          \__|   \_______| \_______| \_______|\__|  \__|      "  
                                                                                                                
 

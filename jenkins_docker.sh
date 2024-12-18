@@ -38,7 +38,7 @@ sudo docker pull jenkins/jenkins
 
 # 6. Run Jenkins container 
 echo "Starting Jenkins container..."
-sudo docker run -itd -p 8080:8080 --name jenkins_container jenkins/jenkins
+sudo docker run -itd -p 80:8080 --name jenkins_container jenkins/jenkins
 
 # 7. Display container details 
 echo "Listing Docker images..." 
@@ -47,7 +47,8 @@ echo "Jenkins container is running. Access Jenkins at http://localhost:8080"
 
 # 8. Retrieve initial admin password
 echo "Retrieving Jenkins initial admin password..."
-sudo docker exec -it jenkins_container /bin/bash cat /var/jenkins_home/secrets/initialAdminPassword
+sudo docker exec -it jenkins_container /bin/bash 
+cat /var/jenkins_home/secrets/initialAdminPassword
 
 echo "Copy the token above and paste it into the web browser to complete Jenkins setup."
 

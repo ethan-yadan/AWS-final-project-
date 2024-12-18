@@ -26,13 +26,13 @@ echo \
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
  
  # pull image
-docker pull jenkins/jenkins
+sudo docker pull jenkins/jenkins
 
 # view images and see thier IDs
-docker images
+sudo docker images
 
 #run
-docker run -itd -p 8080:8080 --name jenkins_container <ImageID> # you get in earlier step
+sudo docker run -itd -p 8080:8080 --name jenkins_container <ImageID> # you get in earlier step
 
 #Use the web browser to navigate to:
 

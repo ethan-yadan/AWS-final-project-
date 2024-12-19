@@ -63,8 +63,13 @@ Open a additional web browser on your local machine to enter the application (us
 - run bash script aws_env_set.sh
 - enter JenkinsEC2 instance by ssh
 - git clone repository from github
-- run bash script jenkins_setup.sh
-  
+- run bash script jenkins_docker.sh
+- open web browser to access jenkins console (use token retrieved from InitialAdminPassword)
+- run jenkinsfile for CI/CD (update dockerhub credentials)
+- enter NginxEC2 instance by ssh
+- run bash script nginx_deploy.sh
+- open web browser to access note-app (using Nginx)
+
 
 ### Create an aws environment 
 

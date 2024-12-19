@@ -89,8 +89,8 @@ chmod 400 "$KEY_FILE"
 AMI_ID="ami-0e2c8caa4b6378d8c"
 INSTANCE_TYPE="t2.micro" 
 TAG_KEY_EC2="Name"
-TAG_VALUE_EC2="MyProjectEC2Instance"
-TAG_VALUE_EC2w="JenkinsWorker"
+TAG_VALUE_EC2="Jenkins_EC2"
+TAG_VALUE_EC2w="Nginx_EC2"
 
 INSTANCE_ID1=$(aws ec2 run-instances --image-id "$AMI_ID" --count 1 --instance-type "$INSTANCE_TYPE" --key-name "$KEY_NAME" --subnet-id "$SUBNET_ID" --security-group-ids "$SECURITY_GROUP_ID" --associate-public-ip-address --tag-specifications "ResourceType=instance,Tags=[{Key="$TAG_KEY_EC2",Value="$TAG_VALUE_EC2"}]" --query 'Instances[0].InstanceId' --output text)
 

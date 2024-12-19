@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+
+    triggers {
+        curl(
+            url: "http://10.0.2.15:8080}/job/docker_build/build",
+            method: 'POST',
+            credentialsId: 'curl-trigger-credentials', 
+            body: '{ "token": "bf193e8be7d140f6b414b1ba60c88e5d" }', 
+            customHeaders: [[name: 'Content-Type', value: 'application/json']]
+        )
+    }
+
+    environment {
+       
+        DOCKER_USERNAME = credentials('ethanyadan').username
+        DOCKER_PASSWORD = credentials('cyber123!').password
+
+        DOCKER_REGISTRY = 'ethanyadan'
+        DOCKER_IMAGE_NAME = 'details-app'
+    }
+
+    stages {
+        stage('Clone Project') {
+            steps {
+                git branch: 'master', 
+                   credentialsId: 'gitlab-credentials', 
+                   url: 'https://github.com/zero-pytagoras/details-app.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh 'docker build -t ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:0.0.1 .'
+                }
+            }
+        }
+
+        stage('Push Docker Image') {
+            steps {
+                script {
+                    // Login to Docker Hub with secured credentials
+                    docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                    // Push the image to Docker Hub
+                    sh 'docker push ${DOCKER_REGISTRY}/${DOCKER_IMAGE_NAME}:0.0.1'
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up space
+            cleanWs()
+        }
+    }
+}

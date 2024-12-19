@@ -162,7 +162,9 @@ Open a additional web browser on your local machine to enter the application (us
 - ''' cd django-notes-app '''
 - ''' sudo docker-compose up -d '''
 - ''' sudo docker run -d -p 80:8000 notes-app:latest '''
-- ''' 
+- ''' git clone https://github.com/ethan-yadan/AWS-final-project-.git '''
+- ''' bash nginx_deploy.sh '''
+- Access application at http://ec2publicIP:80"
 
 
 
@@ -170,15 +172,4 @@ Open a additional web browser on your local machine to enter the application (us
 
 
 
-
-
-
-
-
-
-
-
-the architecture is to create two ec2 machines which on one ec2 machine will be installed nginx as a webserver that recieves ingress from another ec2 machine that runs jenkins for ci/cd with docker installed, 
-that way the ec2 instace will serve as jenkins master and te docker containers in it will be the workers. 
-the two ec2 instances will communicate with each other, jenkins thru its workers will send missions to the nginx webserver 
 

@@ -1,7 +1,7 @@
 # AWS-final-project
 AWS Final Project - Technion DevOps
 
-![JenkinsCICD](JenkinsCICD.webp)
+![Aws_Logo](AWS_Logo.jpg)
 
 The provided script (set_env.sh) is an AWS infrastructure setup script written in Bash. 
 It performs the following tasks using the AWS CLI:
@@ -44,7 +44,7 @@ Open a additional web browser on your local machine to enter the application (us
 - install and configure nginx on instance nginx 
 - install and configure jenkins on jenkins instance
 
-
+![JenkinsCICD](JenkinsCICD.webp)
 
 
 ## Installation 

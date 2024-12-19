@@ -18,14 +18,18 @@ It performs the following tasks using the AWS CLI:
   - instance type (t2.micro)
   - security group
   - key pair
-  - The instance is tagged with MyEC2Instance
 
 - Outputs Resource Details: After the resources are created, the script outputs the IDs of the VPC, subnet, internet gateway, route table, security group, and EC2 instance.
 - The SSH private key generated for EC2 access has permissions set to 400 to ensure secure access.
 
-After the EC2 instances are created, enter the EC2 tagged as 'Jenkins master' and git clone the project repository, then run jenkins bash to create docker, pull image
-and launch container for jenkins 
-then open a web browser from your local machine to enter the jenkins master webserver with the ec2 public ip and port 80  
+- After the EC2 instances are launched, ssh access the instance tagged as 'JenkinsEC2' and git clone the project repository, then run jenkins bash to create docker, pull image
+and launch container for jenkins. 
+Open a web browser on your local machine to enter the jenkins console with the ec2 public ip and port 80.  
+Run jenkinsfile for execution of Note-App CI/CD.
+
+- Then, ssh access the second instance 'nginxEC2' and run script to launch Nginx and deploy note-app application.
+Open a additional web browser on your local machine to enter the application (using Nginx) with the ec2 public ip and port 80. 
+
 
 ![AWS Arch](course_HA_example.png)
 
@@ -34,11 +38,11 @@ then open a web browser from your local machine to enter the jenkins master webs
 - install and update local debian environment
 - install and update aws cli on local debian vm
 - aws configure and connect your local vm to aws account
-- run bash script to create environment in aws (two ec2 instances: nginx webserver & jenkins master)
+- run bash script to create environment in aws (two ec2 instances: JenkinsEC2 & NginxEC2)
 - check environment created in aws
 - connect by ssh from local vm to aws ec2 instances created
-- install and configure nginx on instance nginx webserver
-- install and configure jenkins on jenkins master instance
+- install and configure nginx on instance nginx 
+- install and configure jenkins on jenkins instance
 
 
 
@@ -55,12 +59,12 @@ then open a web browser from your local machine to enter the jenkins master webs
 - sudo apt update && sudo apt upgrade awscli
 - cat ~/.aws/credentials
 - aws sts get-caller-identity (this will confirm that you're connected to your aws account)
-- git clone repository
+- git clone repository from github 
 - run bash script aws_env_set.sh
-- enter jenkins master ec2 instance by ssh
-- git clone repository
+- enter JenkinsEC2 instance by ssh
+- git clone repository from github
 - run bash script jenkins_setup.sh
-- 
+  
 
 ### Create an aws environment 
 

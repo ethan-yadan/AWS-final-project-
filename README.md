@@ -1,7 +1,7 @@
 # AWS-final-project
 AWS Final Project - Technion DevOps
 
-![Aws_Logo](AWS_Logo.jpg)
+![AWS_Logo](AWS_Logo.png)
 
 The provided script (set_env.sh) is an AWS infrastructure setup script written in Bash. 
 It performs the following tasks using the AWS CLI:

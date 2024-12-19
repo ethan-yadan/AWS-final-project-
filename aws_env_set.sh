@@ -3,7 +3,7 @@
 ############### Start of Secure Header ###############
 # Created by: Eitan Yadan                            #
 # Purpose: creates aws environment for ec2           #
-# Version: 1.0.3                                     #
+# Version: 1.0.4                                     #
 # Date: 17.12.2024                                   #
 set -o errexit                                       #
 set -o pipefail                                      #

@@ -157,7 +157,12 @@ Open a additional web browser on your local machine to enter the application (us
 ### Install Nginx on Nginx EC2 Instance
 
 - ''' ssh -i "my-project-keypair.pem" ubuntu@[EC2-publicIP] ''' (change EC2-publicIP with public IP allocated to nginxEC2 instance)
-
+- ''' git clone https://github.com/LondheShubham153/django-notes-app.git '''
+- ''' sudo apt update '''
+- ''' cd django-notes-app '''
+- ''' sudo docker-compose up -d '''
+- ''' sudo docker run -d -p 80:8000 notes-app:latest '''
+- ''' 
 
 
 

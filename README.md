@@ -132,14 +132,12 @@ Open a additional web browser on your local machine to enter the application (us
 - ''' echo "EC2 instance launched successfully with ID: "$INSTANCE_ID" " '''
 - ''' INSTANCE_DETAILS=$(aws ec2 describe-instances --instance-ids "$INSTANCE_ID" --query 'Reservations[0].Instances[0].[InstanceId,State.Name,PublicIpAddress]' --output table) '''
 - ''' echo "$INSTANCE_DETAILS" '''
-
-### Check Instances Running and Conncet by SSH
-
 - ''' aws ec2 describe-instances --filters Name=instance-state-name,Values=running --query 'Reservations[].Instances[].{InstanceId: InstanceId, PublicIpAddress: PublicIpAddress, PrivateIpAddress: PrivateIpAddress, State: State.Name, InstanceType: InstanceType}' --output table '''
-- ssh -i "my-project-keypair.pem" ubuntu@[EC2-publicIP] ''' (change EC2-publicIP with public IP allocated to the launched instace)
 
-### Install Jenkins on Jenkins Master EC2 Instance
 
+### Install Jenkins on Jenkins EC2 Instance
+
+- ''' ssh -i "my-project-keypair.pem" ubuntu@[EC2-publicIP] ''' (change EC2-publicIP with public IP allocated to the launched instace)
 - ''' sudo apt-get update -y '''
 - ''' sudo apt-get install -y ca-certificates curl '''
 - ''' sudo install -m 0755 -d /etc/apt/keyrings '''
@@ -156,20 +154,17 @@ Open a additional web browser on your local machine to enter the application (us
 - Access Jenkins at http://ec2publicIP:80"
 
 
+### Install Nginx on Nginx EC2 Instance
+
+- ''' ssh -i "my-project-keypair.pem" ubuntu@[EC2-publicIP] ''' (change EC2-publicIP with public IP allocated to nginxEC2 instance)
 
 
 
 
 
 
-from there can create jenkins pipeline to run on additional ec2 instance that will perform as worker 
-the pipeline from the master will run jenkinsfile installed by master in worker and from there will preform a task on app 
-in github (or anykind of different ci/cd task)
-try to create a main fronthand to run the other scripts (like shown by avishai and ori in the class presentation)
 
-in need to create a sencond ec2 instance from the script, check how to create 2 instances at the same time 
-check how to connect the second instance (jenkins worker) to communicate with the first instance (jenkins master) 
-i think it's better to change the name of the first instance to jenkins master 
+
 
 
 

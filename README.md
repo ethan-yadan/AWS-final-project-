@@ -55,7 +55,7 @@ Open a additional web browser on your local machine to enter the application (us
 - aws configure
 - add session token (if using a temporary session crediatials) to ~/.aws/credentials (''' vim ~/.aws/credentials ''')
 - sudo apt update && sudo apt upgrade awscli
-- cat ~/.aws/credentials
+- cat ~/.aws/credentials?plain=1
 - aws sts get-caller-identity (this will confirm that you're connected to your aws account)
 - git clone repository from github 
 - run bash script aws_env_set.sh

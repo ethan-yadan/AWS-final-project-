@@ -49,8 +49,6 @@ Open a additional web browser on your local machine to enter the application (us
 
 ## Installation 
 
-### Install and configure AWS cli 
-
 - sudo apt update
 - sudo apt install awscli
 - aws --version
